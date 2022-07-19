@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import re
 
-# df = pd.read_csv('drive/My Drive/One patient.csv', sep=';', decimal=',', dtype={'PatientKey': 'Int32'},
-#                  encoding='utf-8', parse_dates=['BirthDate', 'LaboratoryResultsDate', 'MinLaboratoryResultsDate'])
+# df = pd.read_csv('drive/My Drive/P.csv', sep=';', decimal=',', dtype={'PatientKey': 'Int32'}, encoding='utf-8',
+#                  parse_dates=['BirthDate', 'LaboratoryResultsDate', 'MinLaboratoryResultsDate'])
 
 
 def Gleb(df):
@@ -142,8 +142,8 @@ def Gleb(df):
                           , fill_value=-1
                           )
 
-    data.reset_index(col_level=1).to_csv('Lena.csv', encoding='utf-8', index=False)
-    df_1 = pd.read_csv('Lena.csv', sep=',', encoding='utf-8', header=1)
+    data.reset_index(col_level=1).to_csv('lena.csv', encoding='utf-8', index=False)
+    df_1 = pd.read_csv('lena.csv', sep=',', encoding='utf-8', header=1)
     a = ["25237", "25238", "25239", "25240", "25244", "25245", "25247", "25255",
          "25256", "25257", "25258", "25259", "25532", "25533", "25541", "26926", "9995650", "9995655",
          "9995658", "9995659", "9995660", "9995788", "9998728", "9998729", "9998730", "9998731",
@@ -221,7 +221,7 @@ def Gleb(df):
          "10015149.1", "10015150.1", "10015151.1", "10015258.1", "10015259.1", 'Gender', 'Age_days', 'Age', 'Age_group']
 
     for i in a:
-        if i not in data:
+        if i not in df_1:
             df_1[i] = -1
 
     df_1['Gender'] = df['Gender'].replace({'мужской': 1, 'женский': 0})
@@ -236,5 +236,6 @@ def Gleb(df):
             diag = df[df.LaboratoryMethodsKey == int(i)]['LaboratoryMethodsName']
             lst = ''.join(set(diag))
             patalog.append(lst)
-    os.remove('Lena.csv')
-    return df_1.drop('PatientKey', axis=1)
+    os.remove('lena.csv')
+
+    return df_1.drop('PatientKey', axis=1), patalog

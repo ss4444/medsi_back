@@ -36,7 +36,7 @@ async def predict(file_in: UploadFile = File(...)):
     buffer = BytesIO(contents)
     df = pd.read_csv(buffer, sep=';', decimal=',', dtype={'PatientKey': 'Int32'},
                      encoding='utf-8', parse_dates=['BirthDate', 'LaboratoryResultsDate', 'MinLaboratoryResultsDate'])
-    data = Gleb(df)
+    data, patolog = Gleb(df)
     prediction = pickle_model.predict_proba(data)
     prediction_list = prediction.tolist()
     prediction_list = prediction_list[0]
@@ -44,7 +44,8 @@ async def predict(file_in: UploadFile = File(...)):
         predict=[
             Diagnosis(
                 title=class_bol[i],
-                value=round(d*100, 2)
+                value=round(d*100, 2),
+                pathologies=patolog
             ) for i, d in enumerate(prediction_list[0:3])
         ]
     )
