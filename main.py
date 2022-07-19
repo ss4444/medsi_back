@@ -35,20 +35,19 @@ async def predict(file_in: UploadFile = File(...)):
     prediction_list = prediction.tolist()
     prediction_list = prediction_list[0]
     os.remove('Lena.csv')
-    return patolog
-    # return PredictModel(
-    #     predict=[
-    #         Diagnosis(
-    #             title='Здоров',
-    #             value=round(prediction_list[0]*100, 2)
-    #         ),
-    #         Diagnosis(
-    #             title='Острая',
-    #             value=round(prediction_list[1]*100, 2)
-    #         ),
-    #         Diagnosis(
-    #             title='Насморк',
-    #             value=round(prediction_list[2]*100, 2)
-    #         )
-    #     ]
-    # )
+    return PredictModel(
+        predict=[
+            Diagnosis(
+                title='Здоров',
+                value=round(prediction_list[0]*100, 2)
+            ),
+            Diagnosis(
+                title='Острая',
+                value=round(prediction_list[1]*100, 2)
+            ),
+            Diagnosis(
+                title='Насморк',
+                value=round(prediction_list[2]*100, 2)
+            )
+        ]
+    )
