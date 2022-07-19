@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 import re
@@ -234,5 +236,5 @@ def Gleb(df):
             diag = df[df.LaboratoryMethodsKey == int(i)]['LaboratoryMethodsName']
             lst = ''.join(set(diag))
             patalog.append(lst)
-
-    return df_1.drop('PatientKey', axis=1), patalog
+    os.remove('Lena.csv')
+    return df_1.drop('PatientKey', axis=1)
