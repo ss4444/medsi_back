@@ -42,8 +42,6 @@ async def predict(file_in: UploadFile = File(...)):
     prediction_list = prediction.tolist()
     prediction_list = prediction_list[0]
     new_names, new_predict = three(class_bol, prediction_list)
-    print(new_names)
-    print(new_predict)
     return PredictModel(
         predict=[
             Diagnosis(
