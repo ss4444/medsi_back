@@ -5,6 +5,7 @@ from lena import Gleb
 import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
 from schemas import PredictModel, Diagnosis
+from max3 import three
 
 
 app = FastAPI()
@@ -40,12 +41,15 @@ async def predict(file_in: UploadFile = File(...)):
     prediction = pickle_model.predict_proba(data)
     prediction_list = prediction.tolist()
     prediction_list = prediction_list[0]
+    new_names, new_predict = three(class_bol, prediction_list)
+    print(new_names)
+    print(new_predict)
     return PredictModel(
         predict=[
             Diagnosis(
-                title=class_bol[i],
+                title=new_names[i],
                 value=round(d*100, 2),
                 pathologies=patolog
-            ) for i, d in enumerate(prediction_list[0:3])
+            ) for i, d in enumerate(new_predict[0:3])
         ]
     )
