@@ -11,7 +11,3 @@ class Diagnosis(BaseModel):
 
 class PredictModel(BaseModel):
     predict: List[Diagnosis]
-
-
-# class Pathologies(BaseModel):
-#     pathologies: List[str]
