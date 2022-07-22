@@ -1,7 +1,7 @@
 import pickle
 from fastapi import FastAPI, UploadFile, File
 from io import BytesIO
-from lena import Gleb
+from gleb import Gleb
 import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
 from schemas import PredictModel, Diagnosis
@@ -19,15 +19,15 @@ app.add_middleware(
 )
 
 
-pkl_filename = 'pickle_model.pkl'
+pkl_filename = 'model_75.pkl'
 with open(pkl_filename, 'rb') as file:
     pickle_model = pickle.load(file)
 
 
 class_bol = [
     'Здоров',
-    'Острая болезнь верхних дыхательных путей',
-    'Насморк'
+    'Гипертензивная [гипертоническая] болезнь с преимущественным поражением сердца без (застойной) сердечной недостаточности',
+    'Нарушение сердечного ритма неуточненное'
 ]
 
 
